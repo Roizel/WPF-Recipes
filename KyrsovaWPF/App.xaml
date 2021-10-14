@@ -1,0 +1,12 @@
+﻿<Application x:Class="KyrsovaWPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:KyrsovaWPF"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <RadialGradientBrush x:Key="RadGradForWind">
+            <GradientStop Color="#080080"></GradientStop>
+            <GradientStop Color="#004b5c" Offset="1"></GradientStop>
+        </RadialGradientBrush>
+    </Application.Resources>
+</Application>

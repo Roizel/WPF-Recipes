@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище RecipeDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="RecipeTable">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TypeOfCuisine" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TypeOfMeal" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ingredients" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HowToCook" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="Хранилище RecipeDBModelContainer">
+    <EntitySet Name="RecipeTable" EntityType="Self.RecipeTable" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

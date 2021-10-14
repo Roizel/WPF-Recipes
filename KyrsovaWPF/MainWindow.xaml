@@ -1,0 +1,118 @@
+﻿<Window x:Class="KyrsovaWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KyrsovaWPF"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:ViewModel}"
+        Title="MainWindow" Height="600" Width="1200" MinHeight="200" MinWidth="400" WindowStyle="ThreeDBorderWindow" Icon="Без названия.jpg">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="gradientgreen">
+            <GradientStop Color="#003993"/>
+            <GradientStop Color="#00911d" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="gradientred">
+            <GradientStop Color="#c80000"></GradientStop>
+            <GradientStop Color="#0d0073" Offset="1"></GradientStop>
+        </LinearGradientBrush>
+        <RadialGradientBrush x:Key="RadGrad">
+            <GradientStop Color="#a200ff"></GradientStop>
+            <GradientStop Color="#ff5900" Offset="1"></GradientStop>
+        </RadialGradientBrush>
+        <RadialGradientBrush x:Key="GradForTextBox">
+            <GradientStop Color="#9100ff"></GradientStop>
+            <GradientStop Color="#0068ff" Offset="1"></GradientStop>
+        </RadialGradientBrush>
+        <RadialGradientBrush x:Key="experiment">
+            <GradientStop Color="#2f2a2a"></GradientStop>
+            <GradientStop Color="#000000" Offset="1"></GradientStop>
+        </RadialGradientBrush>
+        <RadialGradientBrush x:Key="experimentForText">
+            <GradientStop Color="#ff5e00"></GradientStop>
+            <GradientStop Color="#00f9ff" Offset="1"></GradientStop>
+        </RadialGradientBrush>
+        <RadialGradientBrush x:Key="SilverText">
+            <GradientStop Color="Silver"></GradientStop>
+        </RadialGradientBrush>
+    </Window.Resources>
+    <Window.Background>
+        <ImageBrush ImageSource="Без названия (1).jpg" TileMode="FlipY"/>
+    </Window.Background>
+    <DockPanel LastChildFill="True">
+        <DockPanel DockPanel.Dock="Top" Height="25">
+            <Menu Background="Transparent" Foreground="{StaticResource SilverText}">
+                <MenuItem Header="Save" Command="{Binding WriteToFile}" Margin="2"></MenuItem>
+            </Menu>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" Height="30" LastChildFill="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Background="Transparent" BorderBrush="{StaticResource  GradForTextBox}" Foreground="Silver" Height="20" Width="300" Text="{Binding Name_Of_Recipe, Mode=OneWayToSource}"></TextBox>
+            <Button Grid.Column="3" Width="100" Height="22" HorizontalAlignment="Right" Background="{StaticResource gradientgreen}" Command="{Binding SearchTextBox}" >Search</Button>
+            </Grid>
+        </DockPanel>
+        <DockPanel Height="15" DockPanel.Dock="Top" LastChildFill="False">
+            <Button Background="{StaticResource gradientred}" Width="20" Margin="2" Command="{Binding RefreshListBox}"></Button>
+            <Button Background="{StaticResource gradientred}" Width="20" Margin="2"></Button>
+            <Button Background="{StaticResource gradientred}" Width="20" Margin="2"></Button>
+        </DockPanel>
+        <Grid DockPanel.Dock="Top" MinHeight="350">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+                <ColumnDefinition Width="790*"/>
+                <ColumnDefinition Width="397*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ListBox Name="MainListBox" ItemsSource="{Binding Path=Irecipes}" SelectedItem="{Binding Path=SelectedRecipe, Mode=OneWayToSource}" HorizontalContentAlignment="Stretch" Margin="5" MouseDoubleClick="MainListBox_MouseDoubleClick" SelectionChanged="MainListBox_SelectionChanged" Grid.ColumnSpan="2" Foreground="{StaticResource RadGrad}">
+                <ListBox.Background>
+                    <ImageBrush/>
+                </ListBox.Background>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="250">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="75"></RowDefinition>
+                                <RowDefinition Height="75"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Content="{Binding Path=Name, Mode=OneWay}" Foreground="{StaticResource SilverText}"></Label>
+                            <Label Grid.Row="1" Content="{Binding Path=Type_Of_Cuisine, Mode=OneWay}" Foreground="{StaticResource SilverText}"></Label>
+                            <Label Grid.Row="2" Content="{Binding Path=Type_Of_Meal, Mode=OneWay}" Foreground="{StaticResource SilverText}"></Label>
+                            <TextBox Background="Transparent" Grid.Row="3" Width="755" Height="75" Text="{Binding Path=Ingredients, Mode=OneWay}" TextWrapping="Wrap" Foreground="{StaticResource SilverText}" TextAlignment="Left" IsReadOnly="True"></TextBox>
+                            <TextBox Background="Transparent" Grid.Row="4" Width="755" Height="75" Text="{Binding Path=How_To_Cook, Mode=OneWay}" TextWrapping="Wrap" Foreground="{StaticResource SilverText}" TextAlignment="Left" IsReadOnly="True"></TextBox>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <StackPanel Grid.Column="2">
+                <Label  Foreground="{StaticResource SilverText}" Margin="5,0,0,5">Name</Label>
+                <TextBox Background="Transparent" BorderBrush="{StaticResource GradForTextBox}" Foreground="{StaticResource SilverText}" Margin="5" Name="BoxName" Text="{Binding Path=PropRecipe.Name, Mode=OneWayToSource}"></TextBox>
+                <Label  Foreground="{StaticResource SilverText}" Margin="5">Type of cuisine</Label>
+                <TextBox Background="Transparent" BorderBrush="{StaticResource GradForTextBox}" Foreground="{StaticResource SilverText}" Margin="5" Name="BoxCuisine" Text="{Binding Path=PropRecipe.Type_Of_Cuisine, Mode=OneWayToSource}"></TextBox>
+                <Label  Foreground="{StaticResource SilverText}" Margin="5">Type of meal</Label>
+                <TextBox Background="Transparent" BorderBrush="{StaticResource GradForTextBox}" Foreground="{StaticResource SilverText}" Margin="5" Name="BoxMeal" Text="{Binding Path=PropRecipe.Type_Of_Meal, Mode=OneWayToSource}"></TextBox>
+                <Label  Foreground="{StaticResource SilverText}" Margin="5">Ingredients</Label>
+                <TextBox  Background="Transparent" BorderBrush="{StaticResource GradForTextBox}" Foreground="{StaticResource SilverText}" Margin="5" Name="BoxIngredients" Height="70" TextWrapping="Wrap" Text="{Binding Path=PropRecipe.Ingredients, Mode=OneWayToSource}"></TextBox>
+                <Label  Foreground="{StaticResource SilverText}" Margin="5">How to cook</Label>
+                <TextBox Background="Transparent" Foreground="{StaticResource SilverText}" Margin="5" Name="BoxCook" Height="70" TextWrapping="Wrap" Text="{Binding Path=PropRecipe.How_To_Cook, Mode=OneWayToSource}" BorderBrush="{StaticResource GradForTextBox}"></TextBox>
+                <Grid Height="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Height="30" Width="150" Margin="5" Command="{Binding AddRecipeCmd}" Grid.Column="0" Background="{StaticResource gradientgreen}">Add</Button>
+                    <Button Height="30" Width="150" Margin="5" Command="{Binding RemoveRecipeCmd}" Grid.Column="1" Background="{StaticResource gradientred}">Remove</Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>
